@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-void DFS_function(int x, int y, char color, int size, vector<vector<char>>greed, vector<vector<int>>* visit) {
+void DFS_function(int x, int y, char color, int size, vector<vector<char>>grid, vector<vector<int>>* visit) {
 	// 실제 DFS 실행 함수 - 재귀 목적
 
 	int move_x[] = { 0,-1,0,1 };
@@ -14,17 +14,17 @@ void DFS_function(int x, int y, char color, int size, vector<vector<char>>greed,
 		int cur_y = y + move_y[i];
 		// 현재 좌표를 기준으로 확인할 주변 노드의 좌표
 
-		if (cur_x >= 0 && cur_y >= 0 && cur_x < size && cur_y < size && (*visit)[cur_x][cur_y] == 0 && greed[cur_x][cur_y] == color) {
+		if (cur_x >= 0 && cur_y >= 0 && cur_x < size && cur_y < size && (*visit)[cur_x][cur_y] == 0 && grid[cur_x][cur_y] == color) {
 		// 확인중인 노드가 방문한 적 있는지, 현재 좌표의 색상과 같은지, 그리드 범위 내에 속하는지 확인
 			(* visit)[cur_x][cur_y] = 1;
 			// 조건을 충족한다면 해당 좌표를 방문 표시
-			DFS_function(cur_x, cur_y, greed[cur_x][cur_y], size, greed, visit);
+			DFS_function(cur_x, cur_y, grid[cur_x][cur_y], size, grid, visit);
 			// 방문 표시한 좌표를 기준으로 DFS 수행
 		}
 	}
 }
 
-int DFS_main(int size, vector<vector<char>> greed) { // DFS 수행 함수
+int DFS_main(int size, vector<vector<char>> grid) { // DFS 수행 함수
 	vector<vector<int>> visit(size, vector<int>(size, 0));
 	// DFS를 수행하면서 방문 여부를 확인할 그리드 선언
 	// 0: Not visited || 1: Visited
@@ -42,7 +42,7 @@ int DFS_main(int size, vector<vector<char>> greed) { // DFS 수행 함수
 				// 방문하지 않았던 노드이므로 방문 표시
 				// 방문하지 않았다는 것은 새로운 구역이라는 의미이므로 값 증가
 
-				DFS_function(i, j, greed[i][j], size, greed, &visit);
+				DFS_function(i, j, grid[i][j], size, grid, &visit);
 				// 해당 좌표를 기준으로 DFS 수행
 			}
 		}
@@ -55,23 +55,23 @@ int main() {
 	int size; // 입력받을 그리드의 크기 변수
 	cin >> size; // 그리드 크기 입력
 
-	vector<vector<char>> normal_greed(size, vector<char>(size, 'N'));
-	vector<vector<char>> colorblind_greed(size, vector<char>(size, 'N'));
+	vector<vector<char>> normal_grid(size, vector<char>(size, 'N'));
+	vector<vector<char>> colorblind_grid(size, vector<char>(size, 'N'));
 	// 입력받은 크기 만큼의 그리드 벡터 구현 및 각 값을 'N'으로 초기화
-	// normal_greed는 일반인 시각에서의 그리드, colorblind_greed는 색약인 시각에서의 그리드
+	// normal_grid는 일반인 시각에서의 그리드, colorblind_grid는 색약인 시각에서의 그리드
 
 	for (int i = 0; i < size; i++) { // N x N 개의 색상을 입력받기 위한 반복문
 		for (int j = 0; j < size; j++) {
 			char temp; // 입력받을 색상 임시 저장 변수
 			cin >> temp; // 색상 입력
 			
-			normal_greed[i][j] = temp; // 입력받은 색상을 그리드에 삽입
-			if (temp == 'G') colorblind_greed[i][j] = 'R';
-			else colorblind_greed[i][j] = temp;
+			normal_grid[i][j] = temp; // 입력받은 색상을 그리드에 삽입
+			if (temp == 'G') colorblind_grid[i][j] = 'R';
+			else colorblind_grid[i][j] = temp;
 			// 색약인은 R와 G를 구분할 수 없으니 G를 R로 삽입
 		}
 	}
 
-	cout << DFS_main(size, normal_greed) << ' ' << DFS_main(size, colorblind_greed);
+	cout << DFS_main(size, normal_grid) << ' ' << DFS_main(size, colorblind_grid);
 	return 0;
 }
