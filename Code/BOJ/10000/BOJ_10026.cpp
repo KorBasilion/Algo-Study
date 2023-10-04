@@ -17,7 +17,9 @@ void DFS_function(int x, int y, char color, int size, vector<vector<char>>greed,
 		if (cur_x >= 0 && cur_y >= 0 && cur_x < size && cur_y < size && (*visit)[cur_x][cur_y] == 0 && greed[cur_x][cur_y] == color) {
 		// 확인중인 노드가 방문한 적 있는지, 현재 좌표의 색상과 같은지, 그리드 범위 내에 속하는지 확인
 			(* visit)[cur_x][cur_y] = 1;
+			// 조건을 충족한다면 해당 좌표를 방문 표시
 			DFS_function(cur_x, cur_y, greed[cur_x][cur_y], size, greed, visit);
+			// 방문 표시한 좌표를 기준으로 DFS 수행
 		}
 	}
 }
