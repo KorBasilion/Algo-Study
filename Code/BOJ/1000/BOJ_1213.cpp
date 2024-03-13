@@ -3,7 +3,7 @@
 using namespace std;
 
 int main() {
-	// input_alpha는 큰 의미 없음
+	
 	char input_alpha[50], output_alpha[25];
 	int alpha_sum[26] = {0,};
 	int counter = 0, odd_sum = 0;
