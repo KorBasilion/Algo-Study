@@ -3,72 +3,72 @@
 using namespace std;
 
 void DFS_function(int x, int y, char color, int size, vector<vector<char>>grid, vector<vector<int>>* visit) {
-	// ì‹¤ì œ DFS ì‹¤í–‰ í•¨ìˆ˜ - ìž¬ê·€ ëª©ì 
+	// ½ÇÁ¦ DFS ½ÇÇà ÇÔ¼ö - Àç±Í ¸ñÀû
 
 	int move_x[] = { 0,-1,0,1 };
 	int move_y[] = { 1,0,-1,0 };
-	// ì˜¤ë¥¸ìª½ë¶€í„° ì‹œê³„ ë°©í–¥ ìˆœì„œë¡œ ì£¼ë³€ ë…¸ë“œë¥¼ í™•ì¸í•˜ê¸° ìœ„í•œ ì´ë™ ì¢Œí‘œ
+	// ¿À¸¥ÂÊºÎÅÍ ½Ã°è ¹æÇâ ¼ø¼­·Î ÁÖº¯ ³ëµå¸¦ È®ÀÎÇÏ±â À§ÇÑ ÀÌµ¿ ÁÂÇ¥
 
 	for (int i = 0; i < 4; i++) {
 		int cur_x = x + move_x[i];
 		int cur_y = y + move_y[i];
-		// í˜„ìž¬ ì¢Œí‘œë¥¼ ê¸°ì¤€ìœ¼ë¡œ í™•ì¸í•  ì£¼ë³€ ë…¸ë“œì˜ ì¢Œí‘œ
+		// ÇöÀç ÁÂÇ¥¸¦ ±âÁØÀ¸·Î È®ÀÎÇÒ ÁÖº¯ ³ëµåÀÇ ÁÂÇ¥
 
 		if (cur_x >= 0 && cur_y >= 0 && cur_x < size && cur_y < size && (*visit)[cur_x][cur_y] == 0 && grid[cur_x][cur_y] == color) {
-		// í™•ì¸ì¤‘ì¸ ë…¸ë“œê°€ ë°©ë¬¸í•œ ì  ìžˆëŠ”ì§€, í˜„ìž¬ ì¢Œí‘œì˜ ìƒ‰ìƒê³¼ ê°™ì€ì§€, ê·¸ë¦¬ë“œ ë²”ìœ„ ë‚´ì— ì†í•˜ëŠ”ì§€ í™•ì¸
+		// È®ÀÎÁßÀÎ ³ëµå°¡ ¹æ¹®ÇÑ Àû ÀÖ´ÂÁö, ÇöÀç ÁÂÇ¥ÀÇ »ö»ó°ú °°ÀºÁö, ±×¸®µå ¹üÀ§ ³»¿¡ ¼ÓÇÏ´ÂÁö È®ÀÎ
 			(* visit)[cur_x][cur_y] = 1;
-			// ì¡°ê±´ì„ ì¶©ì¡±í•œë‹¤ë©´ í•´ë‹¹ ì¢Œí‘œë¥¼ ë°©ë¬¸ í‘œì‹œ
+			// Á¶°ÇÀ» ÃæÁ·ÇÑ´Ù¸é ÇØ´ç ÁÂÇ¥¸¦ ¹æ¹® Ç¥½Ã
 			DFS_function(cur_x, cur_y, grid[cur_x][cur_y], size, grid, visit);
-			// ë°©ë¬¸ í‘œì‹œí•œ ì¢Œí‘œë¥¼ ê¸°ì¤€ìœ¼ë¡œ DFS ìˆ˜í–‰
+			// ¹æ¹® Ç¥½ÃÇÑ ÁÂÇ¥¸¦ ±âÁØÀ¸·Î DFS ¼öÇà
 		}
 	}
 }
 
-int DFS_main(int size, vector<vector<char>> grid) { // DFS ìˆ˜í–‰ í•¨ìˆ˜
+int DFS_main(int size, vector<vector<char>> grid) { // DFS ¼öÇà ÇÔ¼ö
 	vector<vector<int>> visit(size, vector<int>(size, 0));
-	// DFSë¥¼ ìˆ˜í–‰í•˜ë©´ì„œ ë°©ë¬¸ ì—¬ë¶€ë¥¼ í™•ì¸í•  ê·¸ë¦¬ë“œ ì„ ì–¸
+	// DFS¸¦ ¼öÇàÇÏ¸é¼­ ¹æ¹® ¿©ºÎ¸¦ È®ÀÎÇÒ ±×¸®µå ¼±¾ð
 	// 0: Not visited || 1: Visited
 	
 	int counter = 0;
-	// êµ¬ì—­ì˜ ê°œìˆ˜ë¥¼ ê¸°ë¡í•  ë³€ìˆ˜
+	// ±¸¿ªÀÇ °³¼ö¸¦ ±â·ÏÇÒ º¯¼ö
 
-	for (int i = 0; i < size; i++) { // ëª¨ë“  ê·¸ë¦¬ë“œë¥¼ ë°©ë¬¸í•˜ê¸° ìœ„í•œ ë°˜ë³µë¬¸
+	for (int i = 0; i < size; i++) { // ¸ðµç ±×¸®µå¸¦ ¹æ¹®ÇÏ±â À§ÇÑ ¹Ýº¹¹®
 		for (int j = 0; j < size; j++) {
 			if (visit[i][j] == 1) continue;
-			// ë°©ë¬¸í–ˆë˜ ë…¸ë“œë¼ë©´ ê±´ë„ˆëœ€
+			// ¹æ¹®Çß´ø ³ëµå¶ó¸é °Ç³Ê¶Ü
 			else {
 				visit[i][j] = 1;
 				counter++;
-				// ë°©ë¬¸í•˜ì§€ ì•Šì•˜ë˜ ë…¸ë“œì´ë¯€ë¡œ ë°©ë¬¸ í‘œì‹œ
-				// ë°©ë¬¸í•˜ì§€ ì•Šì•˜ë‹¤ëŠ” ê²ƒì€ ìƒˆë¡œìš´ êµ¬ì—­ì´ë¼ëŠ” ì˜ë¯¸ì´ë¯€ë¡œ ê°’ ì¦ê°€
+				// ¹æ¹®ÇÏÁö ¾Ê¾Ò´ø ³ëµåÀÌ¹Ç·Î ¹æ¹® Ç¥½Ã
+				// ¹æ¹®ÇÏÁö ¾Ê¾Ò´Ù´Â °ÍÀº »õ·Î¿î ±¸¿ªÀÌ¶ó´Â ÀÇ¹ÌÀÌ¹Ç·Î °ª Áõ°¡
 
 				DFS_function(i, j, grid[i][j], size, grid, &visit);
-				// í•´ë‹¹ ì¢Œí‘œë¥¼ ê¸°ì¤€ìœ¼ë¡œ DFS ìˆ˜í–‰
+				// ÇØ´ç ÁÂÇ¥¸¦ ±âÁØÀ¸·Î DFS ¼öÇà
 			}
 		}
 	}
 	return counter;
-	// ê¸°ë¡í•œ êµ¬ì—­ì˜ ê°œìˆ˜ ë°˜í™˜
+	// ±â·ÏÇÑ ±¸¿ªÀÇ °³¼ö ¹ÝÈ¯
 }
 
 int main() {
-	int size; // ìž…ë ¥ë°›ì„ ê·¸ë¦¬ë“œì˜ í¬ê¸° ë³€ìˆ˜
-	cin >> size; // ê·¸ë¦¬ë“œ í¬ê¸° ìž…ë ¥
+	int size; // ÀÔ·Â¹ÞÀ» ±×¸®µåÀÇ Å©±â º¯¼ö
+	cin >> size; // ±×¸®µå Å©±â ÀÔ·Â
 
 	vector<vector<char>> normal_grid(size, vector<char>(size, 'N'));
 	vector<vector<char>> colorblind_grid(size, vector<char>(size, 'N'));
-	// ìž…ë ¥ë°›ì€ í¬ê¸° ë§Œí¼ì˜ ê·¸ë¦¬ë“œ ë²¡í„° êµ¬í˜„ ë° ê° ê°’ì„ 'N'ìœ¼ë¡œ ì´ˆê¸°í™”
-	// normal_gridëŠ” ì¼ë°˜ì¸ ì‹œê°ì—ì„œì˜ ê·¸ë¦¬ë“œ, colorblind_gridëŠ” ìƒ‰ì•½ì¸ ì‹œê°ì—ì„œì˜ ê·¸ë¦¬ë“œ
+	// ÀÔ·Â¹ÞÀº Å©±â ¸¸Å­ÀÇ ±×¸®µå º¤ÅÍ ±¸Çö ¹× °¢ °ªÀ» 'N'À¸·Î ÃÊ±âÈ­
+	// normal_grid´Â ÀÏ¹ÝÀÎ ½Ã°¢¿¡¼­ÀÇ ±×¸®µå, colorblind_grid´Â »ö¾àÀÎ ½Ã°¢¿¡¼­ÀÇ ±×¸®µå
 
-	for (int i = 0; i < size; i++) { // N x N ê°œì˜ ìƒ‰ìƒì„ ìž…ë ¥ë°›ê¸° ìœ„í•œ ë°˜ë³µë¬¸
+	for (int i = 0; i < size; i++) { // N x N °³ÀÇ »ö»óÀ» ÀÔ·Â¹Þ±â À§ÇÑ ¹Ýº¹¹®
 		for (int j = 0; j < size; j++) {
-			char temp; // ìž…ë ¥ë°›ì„ ìƒ‰ìƒ ìž„ì‹œ ì €ìž¥ ë³€ìˆ˜
-			cin >> temp; // ìƒ‰ìƒ ìž…ë ¥
+			char temp; // ÀÔ·Â¹ÞÀ» »ö»ó ÀÓ½Ã ÀúÀå º¯¼ö
+			cin >> temp; // »ö»ó ÀÔ·Â
 			
-			normal_grid[i][j] = temp; // ìž…ë ¥ë°›ì€ ìƒ‰ìƒì„ ê·¸ë¦¬ë“œì— ì‚½ìž…
+			normal_grid[i][j] = temp; // ÀÔ·Â¹ÞÀº »ö»óÀ» ±×¸®µå¿¡ »ðÀÔ
 			if (temp == 'G') colorblind_grid[i][j] = 'R';
 			else colorblind_grid[i][j] = temp;
-			// ìƒ‰ì•½ì¸ì€ Rì™€ Gë¥¼ êµ¬ë¶„í•  ìˆ˜ ì—†ìœ¼ë‹ˆ Gë¥¼ Rë¡œ ì‚½ìž…
+			// »ö¾àÀÎÀº R¿Í G¸¦ ±¸ºÐÇÒ ¼ö ¾øÀ¸´Ï G¸¦ R·Î »ðÀÔ
 		}
 	}
 
